@@ -49,13 +49,25 @@ class OrderController extends Controller
     }
     public function index_order()
     {
-        $orders = OrderModel::all();
+        $user = Auth::user();
+        $is_admin = $user->is_admin;
+
+        if ($is_admin) {
+            $orders = OrderModel::all();
+        } else {
+            $orders = OrderModel::where('user_id', $user->id)->get();
+        }
         return view('index_v_order', compact('orders'));
     }
 
     public function show_order(OrderModel $order)
     {
-        return view('show_v_order', compact('order'));
+        $user = Auth::user();
+        $is_admin = $user->is_admin;
+        if ($is_admin || $order->user_id == $user->id) {
+            return view('show_v_order', compact('order'));
+        }
+        return redirect::route('indeks_order');
     }
 
     public function payment(OrderModel $order, Request $request)
