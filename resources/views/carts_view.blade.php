@@ -45,6 +45,9 @@
     <span class="alert alert-error">{{$error}}</span>
     @endforeach
     @endif
+    @php
+    $total_price = 0;
+    @endphp
     <div class="d-flex flex-wrap p-3 justify-content-center">
         <ul>
             @foreach($carts as $c)
@@ -53,6 +56,13 @@
             </li>
             <li class="list-group-item">Nama: {{ $c->product->name }}</li>
             <li class="list-group-item">Amount: {{ $c->amount }}</li>
+            <li class="list-group-item">
+                @php
+                $total_price += $c->product->price * $c->amount;
+                @endphp
+                @endforeach
+                <p>Total: Rp.{{$total_price}}</p>
+            </li>
             <li class="list-group-item">
                 <form action="{{route('update_cart', $c)}}" method="post">
                     @method('patch')
@@ -66,7 +76,7 @@
                     <button class="danger" type="submit">Delete</button>
                 </form>
             </li>
-            @endforeach
+
             <form action="{{route('checkout')}}" method="post" id="checkoutForm">
                 @csrf
                 <button type="submit" id="cekout" class="primary">Checkout</button>

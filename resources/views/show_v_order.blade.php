@@ -32,15 +32,31 @@
             </li>
         </ul>
     </nav>
-
     <ul>
-
-        <li>ID: {{$order->id}}</li>
+        <li>
+            @php
+            $total_price = 0;
+            @endphp
+        </li>
+        <li>
+            <h2>ORDER ID: {{$order->id}}</h2>
+        </li>
         <li>USER: {{$order->user->name}}</li>
         @foreach($order->transactions as $t)
         <li>Nama Product: {{$t->product->name}}</li>
         <li>Jumlah Amount: {{$t->amount}}</li>
         @endforeach
+        <li>
+            @foreach($order->transactions as $trans)
+            <p>{{$trans->product->name}} - {{$trans->amount}} pcs</p>
+
+            @php
+            $total_price += $trans->product->price * $trans->amount;
+            @endphp
+            @endforeach
+            <p>Total : Rp.{{$total_price}}</p>
+        </li>
+
         <li>
             @if($order->is_paid == false && $order->payment_receipt == null)
             <form action="{{route('payment', $order)}}" method="post" enctype="multipart/form-data">
