@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CartModel;
+use App\Models\OrderModel;
 use App\Models\ProductModel;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -24,36 +25,7 @@ class CartsController extends Controller
      */
     public function add_carts(ProductModel $product, Request $request)
     {
-        // $user_id = Auth::id();
-        // $product_id = $product->id;
-        // $existing_cart = CartModel::where('product_id', $product_id)->where('user_id', $user_id)->first();
 
-        // if ($existing_cart) {
-        //     $existing_cart->update([
-        //         'amount' => $existing_cart->amount + $request->amount
-        //     ]);
-        // } else {
-        //     $request->validate(
-        //         [
-        //             'amount' => 'required|gte:1|lte:' . $product->stock
-        //         ],
-        //         [
-        //             'amount.required' => 'Jumlah harus diisi.',
-        //             'amount.gte' => 'Jumlah harus minimal 1.',
-        //             'amount.lte' => 'Jumlah tidak boleh melebihi stok produk'
-        //         ]
-        //     );
-        //     try {
-        //         CartModel::create([
-        //             'user_id' => $user_id,
-        //             'product_id' => $product->id,
-        //             'amount' => $request->amount
-        //         ]);
-        //     } catch (\Exception $e) {
-        //         return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()]);
-        //     }
-        // }
-        // return Redirect::route('show_cart');
         $request->validate([
             'amount' => 'required|gte:1|lte:' . $product->stock
         ]);
@@ -74,12 +46,10 @@ class CartsController extends Controller
         $user_id = Auth::id();
         // Menghitung langsung jumlah data
         $jumlah = CartModel::where('user_id', $user_id)->count();
-        // $jumlah = $carts->count();
-
         // Mengambil semua item keranjang untuk ditampilkan
         $carts = CartModel::where('user_id', $user_id)->get();
 
-        return view('carts_view', compact('carts', 'jumlah'));
+        return view('carts_view', compact('carts', 'jumlah',));
     }
     /**
      * Show the form for editing the specified resource.

@@ -15,7 +15,6 @@
         <ul class="navbar-nav">
             <li><a href="/">Home</a></li>
             <li><a href="{{ route('store_product') }}">Add Product</a></li>
-            <li><a href="{{route('index_product')}}">Product</a></li>
             <li>
                 <div class="dropdown">
                     <a href="#">Settings</a>
@@ -26,6 +25,16 @@
                     </div>
                 </div>
             </li>
+            <li>
+                <a href="{{ route('logout') }}"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+            </li>
+
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
+
+
         </ul>
     </nav>
 

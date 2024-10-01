@@ -16,7 +16,6 @@
         <ul class="navbar-nav">
             <li><a href="/">Home</a></li>
             <li><a href="{{route('store_product')}}">Add Product</a></li>
-            <li><a href="{{route('index_product')}}">Product</a></li>
             <li>
                 <div class="dropdown">
                     <a href="#">Settings</a>
@@ -27,6 +26,16 @@
                     </div>
                 </div>
             </li>
+            <li>
+                <a href="{{ route('logout') }}"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+            </li>
+
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
+
+
         </ul>
     </nav>
     <!-- Sidebar -->
@@ -50,37 +59,45 @@
     @endphp
     <div class="d-flex flex-wrap p-3 justify-content-center">
         <ul>
+            @php
+            $total_price = 0;
+            @endphp
+
             @foreach($carts as $c)
             <li class="list-group-item">
                 <img src="{{ asset('storage/' . $c->product->image) }}" alt=" " height="200">
             </li>
             <li class="list-group-item">Nama: {{ $c->product->name }}</li>
             <li class="list-group-item">Amount: {{ $c->amount }}</li>
+
             <li class="list-group-item">
                 @php
                 $total_price += $c->product->price * $c->amount;
                 @endphp
-                @endforeach
-                <p>Total: Rp.{{$total_price}}</p>
             </li>
+
             <li class="list-group-item">
-                <form action="{{route('update_cart', $c)}}" method="post">
+                <form action="{{ route('update_cart', $c) }}" method="post">
                     @method('patch')
                     @csrf
-                    <input type="number" name="amount" value="{{$c->amount}}">
-                    <button type="submit" class="warning">update amount</button>
+                    <input type="number" name="amount" value="{{ $c->amount }}">
+                    <button type="submit" class="warning">Update Amount</button>
                 </form>
-                <form action="{{route('delete_cart', $c)}}" method="post">
+
+                <form action="{{ route('delete_cart', $c) }}" method="post">
                     @method('delete')
                     @csrf
                     <button class="danger" type="submit">Delete</button>
                 </form>
             </li>
-
-            <form action="{{route('checkout')}}" method="post" id="checkoutForm">
-                @csrf
-                <button type="submit" id="cekout" class="primary">Checkout</button>
-            </form>
+            @endforeach
+            <p>Total: Rp.{{ $total_price }}</p>
+            <li>
+                <form action="{{route('checkout')}}" method="post">
+                    @csrf
+                    <button type="submit" class="success">Checkout</button>
+                </form>
+            </li>
         </ul>
     </div>
     <script>

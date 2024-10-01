@@ -70,6 +70,7 @@ class OrderController extends Controller
         ]);
         return redirect::back()->with('berhasil');
     }
+
     public function confirm_payment(OrderModel $order)
     {
         $order->update([

@@ -22,7 +22,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ route('index_product') }}">
+                <a class="navbar-brand" href="{{ route('indeks_product') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -62,7 +62,7 @@
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{route('store_product')}}"> Tambah Product
                                 </a>
-                                <a class="dropdown-item" href="{{route('index_product')}}">
+                                <a class="dropdown-item" href="{{route('indeks_product')}}">
                                     Product
                                 </a>
                                 <a class="dropdown-item" href="{{route('index_order')}}">Order</a>

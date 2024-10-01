@@ -19,7 +19,6 @@
         <ul class="navbar-nav">
             <li><a href="/">Home</a></li>
             <li><a href="{{ route('store_product') }}">Add Product</a></li>
-            <li><a href="{{route('index_product')}}">Product</a></li>
             <li>
                 <div class="dropdown">
                     <a href="#">Settings</a>
@@ -30,6 +29,15 @@
                     </div>
                 </div>
             </li>
+            <li>
+                <a href="{{ route('logout') }}"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+            </li>
+
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
+
         </ul>
     </nav>
     <ul>
@@ -54,9 +62,8 @@
             $total_price += $trans->product->price * $trans->amount;
             @endphp
             @endforeach
-            <p>Total : Rp.{{$total_price}}</p>
+            <p>Total : Rp.{{$total_price}} .00</p>
         </li>
-
         <li>
             @if($order->is_paid == false && $order->payment_receipt == null)
             <form action="{{route('payment', $order)}}" method="post" enctype="multipart/form-data">
@@ -71,7 +78,6 @@
             </form>
             @endif
         </li>
-
     </ul>
     <script>
     // DOMContentLoaded memastikan script berjalan setelah halaman siap
@@ -107,5 +113,6 @@
     });
     </script>
 </body>
+
 
 </html>

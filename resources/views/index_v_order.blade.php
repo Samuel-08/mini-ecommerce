@@ -19,7 +19,6 @@
         <ul class="navbar-nav">
             <li><a href="/">Home</a></li>
             <li><a href="{{ route('store_product') }}">Add Product</a></li>
-            <li><a href="{{route('index_product')}}">Product</a></li>
             <li>
                 <div class="dropdown">
                     <a href="#">Settings</a>
@@ -30,6 +29,16 @@
                     </div>
                 </div>
             </li>
+            <li>
+                <a href="{{ route('logout') }}"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+            </li>
+
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
+
+
         </ul>
     </nav>
     <ul>
@@ -62,37 +71,37 @@
         </ul>
     </ul>
     <script>
-    // DOMContentLoaded memastikan script berjalan setelah halaman siap
-    document.addEventListener('DOMContentLoaded', function() {
-        // Simpan title asli untuk dikembalikan saat halaman aktif
-        const originalTitle = document.title;
+        // DOMContentLoaded memastikan script berjalan setelah halaman siap
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simpan title asli untuk dikembalikan saat halaman aktif
+            const originalTitle = document.title;
 
-        // BOM: Deteksi visibilitas halaman menggunakan Page Visibility API
-        document.addEventListener('visibilitychange', function() {
-            if (document.hidden) {
-                // Ketika pengguna berpindah ke tab lain
-                document.title = 'Hei! Jangan lupa kembali ke sini 😢';
-            } else {
-                // Ketika pengguna kembali ke tab ini
-                document.title = originalTitle;
-            }
+            // BOM: Deteksi visibilitas halaman menggunakan Page Visibility API
+            document.addEventListener('visibilitychange', function() {
+                if (document.hidden) {
+                    // Ketika pengguna berpindah ke tab lain
+                    document.title = 'Hei! Jangan lupa kembali ke sini 😢';
+                } else {
+                    // Ketika pengguna kembali ke tab ini
+                    document.title = originalTitle;
+                }
+            });
+
+            document.getElementById('hapus').addEventListener('click', function(event) {
+                // Prevent the default form submission
+                event.preventDefault();
+
+                // Show confirmation dialog
+                const confirmed = confirm('Yakin mau menghapus?');
+                if (confirmed) {
+                    // Submit the form if confirmed
+                    document.getElementById('deleteForm').submit();
+                } else {
+                    alert('Batal menghapus');
+                }
+            });
+
         });
-
-        document.getElementById('hapus').addEventListener('click', function(event) {
-            // Prevent the default form submission
-            event.preventDefault();
-
-            // Show confirmation dialog
-            const confirmed = confirm('Yakin mau menghapus?');
-            if (confirmed) {
-                // Submit the form if confirmed
-                document.getElementById('deleteForm').submit();
-            } else {
-                alert('Batal menghapus');
-            }
-        });
-
-    });
     </script>
 </body>
 

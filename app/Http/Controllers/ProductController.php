@@ -42,7 +42,7 @@ class ProductController extends Controller
             'price' => 'required',
             'stock' => 'required',
             'description' => 'required',
-               'image' => 'nullable|mimes:jpeg,png,jpg,gif|max:999048',
+            'image' => 'nullable|mimes:jpeg,png,jpg,gif|max:999048',
         ]);
         $file = $request->file('image');
 
@@ -56,7 +56,7 @@ class ProductController extends Controller
             'description' => $request->description,
             'image' => $path
         ]);
-        return Redirect::route('index_product');
+        return Redirect::route('indeks_product');
     }
 
     /**
@@ -79,8 +79,7 @@ class ProductController extends Controller
     public function edit_product(ProductModel $product)
     {
         //
-       return view('edit', compact('product'));
-
+        return view('edit', compact('product'));
     }
 
     /**
@@ -134,6 +133,6 @@ class ProductController extends Controller
     {
         //
         $product->delete();
-        return Redirect::route('index_product');
+        return Redirect::route('indeks_product');
     }
 }

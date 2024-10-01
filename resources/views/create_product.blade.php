@@ -16,17 +16,24 @@
         <ul class="navbar-nav">
             <li><a href="/">Home</a></li>
             <li><a href="{{ route('store_product') }}">Add Product</a></li>
-            <li><a href="{{route('index_product')}}">Product</a></li>
             <li>
                 <div class="dropdown">
-                    <a href="#">Settings <sup class="text-danger bg-warning p-2">3</sup></a>
+                    <a href="#">Settings</a>
                     <div class="dropdown-content">
                         <a href="{{route('index_order')}}">Order</a>
-                        <a href="{{route('show_cart')}}">Cart <sup class="text-danger">3</sup></a>
+                        <a href="{{route('show_cart')}}">Cart</a>
                         <a href="{{route('show_profile')}}">Profile</a>
                     </div>
                 </div>
             </li>
+            <li>
+                <a href="{{ route('logout') }}"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+            </li>
+
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
         </ul>
     </nav>
 
