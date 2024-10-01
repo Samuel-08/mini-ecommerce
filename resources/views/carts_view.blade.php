@@ -15,7 +15,7 @@
         <div class="navbar-brand">Admin Dashboard</div>
         <ul class="navbar-nav">
             <li><a href="/">Home</a></li>
-            <li><a href="{{ route('store_product') }}">Add Product</a></li>
+            <li><a href="{{route('store_product')}}">Add Product</a></li>
             <li><a href="{{route('index_product')}}">Product</a></li>
             <li>
                 <div class="dropdown">

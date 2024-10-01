@@ -40,6 +40,7 @@
         @foreach($order->transactions as $t)
         <li>Nama Product: {{$t->product->name}}</li>
         <li>Jumlah Amount: {{$t->amount}}</li>
+        @endforeach
         <li>
             @if($order->is_paid == false && $order->payment_receipt == null)
             <form action="{{route('payment', $order)}}" method="post" enctype="multipart/form-data">
@@ -54,9 +55,8 @@
             </form>
             @endif
         </li>
-        @endforeach
-    </ul>
 
+    </ul>
     <script>
     // DOMContentLoaded memastikan script berjalan setelah halaman siap
     document.addEventListener('DOMContentLoaded', function() {

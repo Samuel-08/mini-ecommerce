@@ -45,7 +45,7 @@ class OrderController extends Controller
 
             $ca->delete();
         }
-        return redirect::back();
+        return redirect::route('show_order', $order);
     }
     public function index_order()
     {
